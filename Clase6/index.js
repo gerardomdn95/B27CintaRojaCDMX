@@ -48,9 +48,11 @@ app.post('/resta', (req, res) => {
     res.status(200).send({result});
 });
 
-app.post('/pokemon', () => {
-    const URL = 'https://pokeapi.co/api/v2/';
+app.post('/pokemon', (req, resp) => {
+    const URL = 'https://pokeapi.co/api/v2/pokemon/';
     const pokemon = req.body.pokemon;
+
+    console.log(pokemon);
 
     request.get(`${URL}${pokemon}/`, (err, res, body) => {
         const poke_res = JSON.parse(body);
@@ -59,28 +61,17 @@ app.post('/pokemon', () => {
         const id = poke_res.id;
         const poke_obj = {
             name: name,
+            id: id,
             type: type,
             moves: {
-                move1: moves[0].move.name,
-                move2: moves[1].move.name,
-                move3: moves[2].move.name,
-                move4: moves[3].move.name
+                move1: poke_res.moves[0].move.name,
+                move2: poke_res.moves[1].move.name,
+                move3: poke_res.moves[2].move.name,
+                move4: poke_res.moves[3].move.name
             }
-        }
-        resp.status(200).send({ 'pokemon': poke_obj });
+        };
+        resp.status(200).send({ 'personaje': poke_obj });
     });
 });
-
-// const respuesta = {
-//     name: "Pikachu",
-//     id: pokedex,
-//     type: "electric",
-//     moves: {
-//         move1: "nombre",
-//         move2: "nombre",
-//         move3: "nombre",
-//         move4: "nombre"
-//     }
-// }
 
 app.listen(3000, () => (console.log('Servidor escuchando en el puerto 3000')));
