@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-// app.use(bodyParser.json())
+app.use(bodyParser.json())
  app.use(bodyParser.urlencoded({extended: true}))
 
 // Mongo URI

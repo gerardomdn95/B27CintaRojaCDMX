@@ -9,10 +9,6 @@ const alumnoSchema = Schema({
     apellidos: String,
     edad: Number,
     genero: String,
-    cursos : {
-        type: ObjectId,
-        ref: 'Curso'
-    }
 });
 
 const Alumno = mongoose.model('Alumno', alumnoSchema);
